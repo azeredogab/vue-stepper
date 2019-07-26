@@ -41,8 +41,13 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-8 is-offset-2">
-                        <horizontal-stepper :steps="demoSteps" @completed-step="completeStep" :top-buttons="false"
-                                            @active-step="isStepActive" @stepper-finished="alert"></horizontal-stepper>
+                        <vertical-stepper 
+                            :steps="demoSteps" 
+                            :top-buttons="false"
+                            @completed-step="completeStep" 
+                            @active-step="isStepActive" 
+                            @before-next-step="beforeNextStep" 
+                            @stepper-finished="alert"></vertical-stepper>
                     </div>
                 </div>
             </div>
@@ -76,7 +81,7 @@
     export default {
         name: 'app',
         components: {
-            HorizontalStepper
+            VerticalStepper
         },
         data(){
             return {
@@ -89,7 +94,7 @@
                         title: 'Sample title 1',
                         subtitle: 'Subtitle sample',
                         component: StepOne,
-                        completed: false
+                        completed: true,
 
                     },
                     {
@@ -98,7 +103,7 @@
                         title: 'Sample title 2',
                         subtitle: 'Subtitle sample',
                         component: StepTwo,
-                        completed: false
+                        completed: false,
                     },
                     {
                         icon: 'announcement',
@@ -106,7 +111,7 @@
                         title: 'Sample title 3',
                         subtitle: 'Subtitle sample',
                         component: StepOne,
-                        completed: false
+                        completed: false,
                     }
                 ],
                 activeStep: 0
@@ -122,13 +127,17 @@
                 })
             },
             isStepActive(payload) {
-                this.demoSteps.forEach((step) => {
-                    if (step.name === payload.name) {
-                        if(step.completed === true) {
-                            step.completed = false;
-                        }
-                    }
-                })
+                // this.demoSteps.forEach((step) => {
+                //     if (step.name === payload.name) {
+                //         if(step.completed === true) {
+                //             step.completed = false;
+                //         }
+                //     }
+                // })
+            },
+            beforeNextStep(payload, next) {
+                console.log(payload)
+                next()
             },
             alert(payload) {
                 alert('end')
