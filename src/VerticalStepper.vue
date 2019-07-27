@@ -30,7 +30,6 @@
                         :is="steps[currentStep.index].component" 
                         :clickedNext="nextButton[currentStep.name]" 
                         @can-continue="proceed"
-                        @on-change-next="onChangeNext"
                         :current-step="currentStep"></component>
                   </keep-alive>
                   <!--If not show component and destroy it in each step change-->
@@ -112,7 +111,7 @@ export default {
       currentStep: {},
       previousStep: {},
       nextButton: {},
-      canContinue: false,
+      canContinue: true,
       finalStep: false,
       keepAliveData: this.keepAlive
     };
@@ -185,7 +184,7 @@ export default {
         this.nextStepAction()
       }
 
-      this.canContinue = false;
+      //this.canContinue = false;
 
       this.$emit("before-next-step", { currentStep: this.currentStep }, (next = true) => {
         this.canContinue = true;

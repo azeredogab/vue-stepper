@@ -136,8 +136,11 @@
                 // })
             },
             beforeNextStep(payload, next) {
+                //valida os steps
                 console.log(payload)
-                next()
+
+
+                //next()
             },
             alert(payload) {
                 alert('end')
